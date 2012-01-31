@@ -1,0 +1,46 @@
+<?php $this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Registration");
+$this->breadcrumbs=array(
+	UserModule::t("Registration"),
+);
+?>
+
+<h1><?php echo UserModule::t("Registration"); ?></h1>
+
+<?php if(Yii::app()->user->hasFlash('registration')): ?>
+<div class="success">
+<?php echo Yii::app()->user->getFlash('registration'); ?>
+</div>
+<?php else: ?>
+
+<div class="form">
+<?php $form=$this->beginWidget('UActiveForm', array(
+	'id'=>'registration-form',
+	'enableAjaxValidation'=>true,
+	'disableAjaxValidationAttributes'=>array('RegistrationForm_verifyCode'),
+	'htmlOptions' => array('enctype'=>'multipart/form-data'),
+)); ?>
+
+	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	
+	<?php echo $form->errorSummary(array($model,$profile)); ?>
+	
+	<div class="row">
+	<?php echo $form->labelEx($model,'email'); ?>
+	<?php echo $form->textField($model,'email'); ?>
+	<?php echo $form->error($model,'email'); ?>
+	</div>
+	<div class="row">
+	<?php echo $form->labelEx($model,'password'); ?>
+	<?php echo $form->passwordField($model,'password'); ?>
+	<?php echo $form->error($model,'password'); ?>
+	<p class="hint">
+	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
+	</p>
+	</div>		
+	<div class="row submit">
+		<?php echo CHtml::submitButton(UserModule::t("Register")); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+<?php endif; ?>
