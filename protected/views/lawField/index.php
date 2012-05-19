@@ -20,11 +20,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'law_id',
             'type' => 'raw',
             'value' => '(!empty($data->law->description))?$data->law->description:"";',
+            'filter' => CHtml::listData(Law::model()->findAll(),'id','description'), 
         ),
         array(
             'name' => 'type',
             'type' => 'raw',
             'value' => '(!empty($data->lawfieldtype->name))?$data->lawfieldtype->name:"";',
+            'filter' => CHtml::listData(LawFieldType::model()->findAll(),'id','name'), 
         ),
         'fn',
         array(

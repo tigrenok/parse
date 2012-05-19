@@ -218,7 +218,8 @@ class SiteParsController extends Controller {
                     $content->stop = array_shift($data['content']['stop']);
                 $content->site_id = $model->id;
                 $content->save(false);
-                $return[] = $content->id;
+                $return[$content->id] = !empty($cont['header'])?$cont['header']:'content';
+                
             }
         }
         return $return;

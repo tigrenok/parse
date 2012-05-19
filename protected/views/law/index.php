@@ -6,7 +6,6 @@ $this->breadcrumbs = array(
 ?>
 
 <h1>Правила</h1>
-
 <?php echo CHtml::link('Добавить', array('law/create')); ?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -21,6 +20,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'law_type_id',
             'type' => 'raw',
             'value' => '$data->lawtype->name',
+            'filter' => CHtml::listData(LawType::model()->findAll(),'id','name'),          
         ),
         array(
             'name' => 'chil_id',

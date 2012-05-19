@@ -79,8 +79,9 @@ class Law extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('law_type_id', $this->law_type_id);
         $criteria->compare('chil_id', $this->chil_id);
+        if ($this->law_type_id)
+            $criteria->compare('law_type_id', $this->law_type_id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

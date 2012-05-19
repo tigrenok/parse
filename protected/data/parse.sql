@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-05-19 15:04:20
+Date: 2012-05-19 17:28:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `tbl_content` (
   `date_parse` datetime DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=479 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_content
@@ -82,7 +82,7 @@ CREATE TABLE `tbl_law_field` (
   `type` int(11) DEFAULT NULL,
   `fn` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law_field
@@ -106,7 +106,6 @@ INSERT INTO `tbl_law_field` VALUES ('21', '4', '2', 'h3');
 INSERT INTO `tbl_law_field` VALUES ('22', '4', '4', 'p[id^=story]');
 INSERT INTO `tbl_law_field` VALUES ('23', '5', '2', 'h3');
 INSERT INTO `tbl_law_field` VALUES ('24', '5', '4', 'div[id^=post_]');
-INSERT INTO `tbl_law_field` VALUES ('25', '5', '6', 'self::imgcontent($content)');
 INSERT INTO `tbl_law_field` VALUES ('26', '4', '6', 'self::imgcontent($content)');
 
 -- ----------------------------

@@ -27,6 +27,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'coding_id',
             'type' => 'raw',
             'value' => '$data->coding->name',
+            'filter' => CHtml::listData(Coding::model()->findAll(),'id','name'), 
         ),
         array(
             'type' => 'raw',
