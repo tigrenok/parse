@@ -110,38 +110,64 @@ class SiteParsController extends Controller {
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
+
     /**
-     *Точка входа на парсиг с id сайта
+     * Точка входа на парсиг с id сайта
      * @param int $id 
      */
-
     public function actionParse($id) {
 
         $model = $this->loadModel($id);
 
         $parse = false;
-        eval("\$parse = self::getCont" . '($model,"' . $model->law->lawtype->value . '");');
+        $type = $model->law->lawtype->value;
 
+        switch ($type) {
+            case 'one':
+                echo $type;
+                //  eval("\$parse = self::getCont" . '($model,"' . $type . '");');
+                break;
+            case 'list_block':
+                echo $type;
+                //  eval("\$parse = self::getCont" . '($model,"' . $type . '");');
+                break;
+            case 'list_link':
+                $link_array = self::getLawList($model);
+                echo "<pre>";
+                echo var_dump($link_array);
+                echo "</pre>";
+                break;
+        }
         $this->render('parse', array(
             'model' => $model, 'parse' => $parse,
         ));
     }
-/**
- *Возврашает правила парсинга 
- * @return type 
- */
-    public static function getLawList() {
-        $law = array(0 => 'Пока не задано');
-        foreach (Law::model()->findAll() as $key => $value)
-            $law[$value->id] = $value->description;
-        return $law;
+
+    /**
+     * Возврашает правила парсинга 
+     * @return type 
+     */
+    public static function getLawList($model) {
+        $arr = array();
+        $html = new simple_html_dom();
+        $html->load_file($model->url);
+        foreach (LawField::model()->findAll('t.law_id = ' . $model->law->id) as $k => $v) {
+            if ($v->lawfieldtype->param == 1) {
+                $arr[$k] = $v->fn;
+            }
+        }
+        /* $law = array(0 => 'Пока не задано');
+          foreach (Law::model()->findAll() as $key => $value)
+          $law[$value->id] = $value->description; */
+        return $arr;
     }
-/**
- *Основной блок парсинга
- * @param object $model
- * @param string $type
- * @return array 
- */
+
+    /**
+     * Основной блок парсинга
+     * @param object $model
+     * @param string $type
+     * @return array 
+     */
     public static function getCont($model, $type) {
 
         $stopthis = false;
@@ -218,8 +244,7 @@ class SiteParsController extends Controller {
                     $content->stop = array_shift($data['content']['stop']);
                 $content->site_id = $model->id;
                 $content->save(false);
-                $return[$content->id] = !empty($cont['header'])?$cont['header']:'content';
-                
+                $return[$content->id] = !empty($cont['header']) ? $cont['header'] : 'content';
             }
         }
         return $return;
