@@ -1,4 +1,6 @@
 AddDefaultCharset utf-8
+
+RewriteEngine on
 Options +FollowSymLinks
 IndexIgnore */*
 RewriteEngine on
@@ -9,4 +11,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
 RewriteRule . index.php
- 
+
+Redirect /.git /index.php

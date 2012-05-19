@@ -2,7 +2,6 @@ protected/config/database.php
 protected/config/main.php
 nbproject/
 protected/runtime
-.settings/
 assets/
 *~
 uploads/

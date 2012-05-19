@@ -1,10 +1,11 @@
 <?php
 $this->breadcrumbs=array(
 	'Laws'=>array('index'),
-	'Редактировать',
+	$model->id=>array('view','id'=>$model->id),
+	'Update',
 );
 ?>
 
-<h3>Редактировать правило для <?php echo $model->sites->url; ?></h3>
+<h1>Редактировать</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'fealds'=>$fealds, 'fealdsthis' => $fealdsthis)); ?>

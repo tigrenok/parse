@@ -1,10 +1,10 @@
 <?php
 $this->breadcrumbs=array(
 	'Laws'=>array('index'),
-	'Добавить правило',
+	'Create',
 );
 ?>
 
-<h3>Добавить правило</h3>
+<h1>Добавить</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'fealds'=>$fealds, 'fealdsthis' => $fealdsthis)); ?>

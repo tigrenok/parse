@@ -4,6 +4,7 @@
             <div style="padding: 20px 0px 20px 20px;">
                 <?php if(!Yii::app()->user->isGuest) $this->widget('UserMenuPars'); ?>
                 <?php if(!Yii::app()->user->isGuest) $this->widget('UserMenuPost'); ?>
+                <?php if(!Yii::app()->user->isGuest) $this->widget('UserMenuMain'); ?>
             </div><!-- sidebar -->
 	</div>
 	<div class="span-18 last">

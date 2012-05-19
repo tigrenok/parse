@@ -9,26 +9,16 @@ class LawController extends Controller {
   public $layout = '//layouts/column2';
 
   /**
-   * Lists all models.
-   */
-  public function actionIndex() {
-    $model = new Law('search');
-    $model->unsetAttributes();  // clear any default values
-    if (isset($_GET['Law']))
-      $model->attributes = $_GET['Law'];
-
-    $this->render('admin', array(
-        'model' => $model,
-    ));
-  }
-
-  /**
    * Displays a particular model.
    * @param integer $id the ID of the model to be displayed
    */
   public function actionView($id) {
+    $fealdsthis = array();
+    foreach (LawField::model()->findAll('t.law_id = ' . $id) as $key => $value) {
+      $fealdsthis[] = array('name'=>(isset($value->lawfieldtype->name))?$value->lawfieldtype->name:'','value'=>$value->fn);
+    }
     $this->render('view', array(
-        'model' => $this->loadModel($id),
+        'model' => $this->loadModel($id), 'fealdsthis' => $fealdsthis
     ));
   }
 
@@ -41,14 +31,36 @@ class LawController extends Controller {
 
     // Uncomment the following line if AJAX validation is needed
     // $this->performAjaxValidation($model);
+    $fealdsthis = array();
+    $fealds = LawFieldType::model()->findAll('t.show = 1');
 
     if (isset($_POST['Law'])) {
       $model->attributes = $_POST['Law'];
-      if ($model->save()) 
-        $this->redirect(array('index'));
+      if ($model->save()) {
+        foreach ($_POST['Law']['fields'] as $key => $value) {
+          $id = $model->id;
+          if (!empty($value)) {
+            if ($lawfield = LawField::model()->find('law_id=' . $id . ' and type = ' . $key)) {
+              $lawfield->type = $key;
+              $lawfield->law_id = $id;
+              $lawfield->fn = $value;
+              $lawfield->save(false);
+            } else {
+              $lawfield = new LawField();
+              $lawfield->type = $key;
+              $lawfield->law_id = $id;
+              $lawfield->fn = $value;
+              $lawfield->save(false);
+            }
+          }
+        }
+
+        $this->redirect(array('view', 'id' => $model->id,));
+      }
     }
+
     $this->render('create', array(
-        'model' => $model,
+        'model' => $model, 'fealds' => $fealds, 'fealdsthis' => $fealdsthis
     ));
   }
 
@@ -59,13 +71,42 @@ class LawController extends Controller {
    */
   public function actionUpdate($id) {
     $model = $this->loadModel($id);
+    $fealds = LawFieldType::model()->findAll('t.show = 1');
+    $fealdsthis = array();
+    foreach (LawField::model()->findAll('t.law_id = ' . $id) as $key => $value) {
+      $fealdsthis[$value->type] = $value->fn;
+    }
+    // Uncomment the following line if AJAX validation is needed
+    // $this->performAjaxValidation($model);
+
     if (isset($_POST['Law'])) {
       $model->attributes = $_POST['Law'];
-      if ($model->save()) 
-        $this->redirect(array('index'));
+      foreach ($_POST['Law']['fields'] as $key => $value) {
+        if (!empty($value)) {
+          if ($lawfield = LawField::model()->find('law_id=' . $id . ' and type = ' . $key)) {
+            $lawfield->type = $key;
+            $lawfield->law_id = $id;
+            $lawfield->fn = $value;
+            if($value == " ")
+            $lawfield->delete();
+            else              
+            $lawfield->save(false);
+          } else {
+            $lawfield = new LawField();
+            $lawfield->type = $key;
+            $lawfield->law_id = $id;
+            $lawfield->fn = $value;
+            $lawfield->save(false);
+          }
+        }
+      }
+
+      if ($model->save())
+        $this->redirect(array('view', 'id' => $model->id));
     }
+
     $this->render('update', array(
-        'model' => $model,
+        'model' => $model, 'fealds' => $fealds, 'fealdsthis' => $fealdsthis,
     ));
   }
 
@@ -78,13 +119,27 @@ class LawController extends Controller {
     if (Yii::app()->request->isPostRequest) {
       // we only allow deletion via POST request
       $this->loadModel($id)->delete();
-
+      LawField::model()->deleteAll('law_id = ' . $id);
       // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
       if (!isset($_GET['ajax']))
         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
     else
       throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+  }
+
+  /**
+   * Lists all models.
+   */
+  public function actionIndex() {
+    $model = new Law('search');
+    $model->unsetAttributes();  // clear any default values
+    if (isset($_GET['Law']))
+      $model->attributes = $_GET['Law'];
+
+    $this->render('index', array(
+        'model' => $model,
+    ));
   }
 
   /**

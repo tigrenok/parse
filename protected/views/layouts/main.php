@@ -26,16 +26,13 @@
 	</div><!-- header -->
 
 	<div id="mainmenu">
-            <?php if (!Yii::app()->user->isGuest){
-                $this->widget('zii.widgets.CMenu',array(
+		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Парс-Пост', 'url'=>array('/sites/index')),
-                                array('url'=>Yii::app()->getModule('user')->profileUrl, 'label'=>Yii::app()->getModule('user')->t("Profile")),
-				array('label'=>'Srbac', 'url'=>Yii::app()->urlManager->createUrl('srbac/')),
-                                array('url'=>Yii::app()->getModule('user')->logoutUrl, 'label'=>Yii::app()->getModule('user')->t("Logout").' ('.Yii::app()->user->name.')'),
+				array('label'=>'Home', 'url'=>array('/law/index'), 'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-		)); 
-            }?>
+		)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -45,9 +42,11 @@
 
 	<?php echo $content; ?>
 
+	<div class="clear"></div>
+
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Amiro.<br/>
-		Все права защещины.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
