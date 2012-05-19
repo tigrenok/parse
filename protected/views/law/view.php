@@ -18,10 +18,5 @@ $this->breadcrumbs=array(
             'type' => 'raw',
             'value' => $model->lawtype->name,
         ),
-        array(
-            'name' => 'chil_id',
-            'type' => 'raw',
-            'value' => (!empty($model->chil->description))?$model->chil->description:'',
-        ),
 	),$fealdsthis )
 )); ?>

@@ -20,16 +20,27 @@ class Parse extends CApplicationComponent {
 
         switch ($type) {
             case 'one':
-               // echo "\t type = \t".$type."\n";
+                // echo "\t type = \t".$type."\n";
                 $parse = Parse::getCont($model, $type);
                 break;
             case 'list_block':
-              //  echo "\t type = \t".$type."\n";
+                //  echo "\t type = \t".$type."\n";
                 $parse = Parse::getCont($model, $type);
                 break;
-            case 'list_link':                
-               // echo "\t type = \t".$type."\n";
-                $parse = Parse::getLawList($model);
+            case 'list_link':
+                // echo "\t type = \t".$type."\n";
+                $list = Parse::getLawList($model);
+                $result = array();
+                if (!empty($list)) {
+                    $child = $model->child;
+                    $type = $child->law->lawtype->value;
+                    foreach ($list as $key => $value) 
+                        $result[] = Parse::getCont($child, $type, $value);                    
+                }
+                foreach ($result as $key => $value) 
+                    if(is_array($value))
+                        foreach ($value as $k=>$v)
+                            $parse[$k]=$v;                
                 break;
         }
 
@@ -53,15 +64,11 @@ class Parse extends CApplicationComponent {
         $html->load_file($model->url);
         foreach (LawField::model()->findAll('t.law_id = ' . $model->law->id) as $k => $v) {
             if ($v->lawfieldtype->param == 1) {
-                $arr[$k] = $v->fn;
                 foreach ($html->find($v->fn) as $element) {
-                    
+                    $arr[] = self::getUrl($element->href, $model->url);
                 }
             }
         }
-        /* $law = array(0 => 'Пока не задано');
-          foreach (Law::model()->findAll() as $key => $value)
-          $law[$value->id] = $value->description; */
         return $arr;
     }
 
@@ -71,7 +78,7 @@ class Parse extends CApplicationComponent {
      * @param string $type
      * @return array 
      */
-    public static function getCont($model, $type) {
+    public static function getCont($model, $type, $new_url = false) {
 
         $stopthis = false;
         if ($stopcontent = Content::model()->find('t.site_id=' . $model->id . " order by date_parse_time")) {
@@ -79,7 +86,10 @@ class Parse extends CApplicationComponent {
         }
 
         $html = new simple_html_dom();
-        $html->load_file($model->url);
+        if ($new_url)
+            $html->load_file($new_url);
+        else
+            $html->load_file($model->url);
 
         $data = array();
         $img = false;
@@ -117,11 +127,14 @@ class Parse extends CApplicationComponent {
                         eval("\$content= " . $video . ";");
                     if ($audio)
                         eval("\$content= " . $audio . ";");
+                    if($model->coding->value != "UTF-8")
                     $data[$v->lawfieldtype->value][] = iconv($model->coding->value, "UTF-8", $content);
+                    else
+                    $data[$v->lawfieldtype->value][] = $content;
                 }
             }
         }
-
+        
         foreach (LawFieldType::model()->findAll('t.param=1') as $value) {
             $arr_seril[] = $value->value;
         }
@@ -153,7 +166,7 @@ class Parse extends CApplicationComponent {
         return $return;
     }
 
-    /** 
+    /**
      * Сохраниет картики
      * @param string $content
      * @param string $src
@@ -235,5 +248,4 @@ class Parse extends CApplicationComponent {
                 return $pref . "/" . $url . "\n";
         }
     }
-
 }

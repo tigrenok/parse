@@ -30,6 +30,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'filter' => CHtml::listData(Coding::model()->findAll(),'id','name'), 
         ),
         array(
+            'name' => 'child_id',
+            'type' => 'raw',
+            'value' => 'isset($data->child->name)?$data->child->name:""',
+            'filter' => CHtml::listData(SitePars::model()->findAll(),'id','name'),  
+        ),
+        array(
             'type' => 'raw',
             'value' => 'CHtml::imageButton("/images/parse.jpg",array("submit"=>"/sitePars/parse/$data->id","width"=>"20px","title"=>"Парсить"))',
         ),

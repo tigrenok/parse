@@ -23,11 +23,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'filter' => CHtml::listData(LawType::model()->findAll(),'id','name'),          
         ),
         array(
-            'name' => 'chil_id',
-            'type' => 'raw',
-            'value' => '(!empty($data->chil->description))?$data->chil->description:"";',
-        ),
-        array(
             'class' => 'CButtonColumn',
         ),
     ),

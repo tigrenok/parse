@@ -35,11 +35,11 @@ class SitePars extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('law_id, coding_id', 'numerical', 'integerOnly' => true),
+            array('law_id, coding_id,child_id', 'numerical', 'integerOnly' => true),
             array('url, name', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, url, name, law_id, coding_id', 'safe', 'on' => 'search'),
+            array('id, url, name, law_id, coding_id,child_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,6 +52,7 @@ class SitePars extends CActiveRecord {
         return array(
             'coding' => array(self::BELONGS_TO, 'Coding', 'coding_id'),
             'law' => array(self::BELONGS_TO, 'Law', 'law_id'),
+            'child' => array(self::BELONGS_TO, 'SitePars', 'child_id'),
         );
     }
 
@@ -65,6 +66,7 @@ class SitePars extends CActiveRecord {
             'name' => 'Name',
             'law_id' => 'Law',
             'coding_id' => 'Coding',
+            'child_id' => 'Child',
         );
     }
 
@@ -83,6 +85,7 @@ class SitePars extends CActiveRecord {
         $criteria->compare('name', $this->name, true);
         $criteria->compare('law_id', $this->law_id);
         $criteria->compare('coding_id', $this->coding_id);
+        $criteria->compare('child_id', $this->child_id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

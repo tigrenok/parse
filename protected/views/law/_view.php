@@ -14,9 +14,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('law_type_id')); ?>:</b>
 	<?php echo CHtml::encode($data->law_type_id); ?>
 	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('chil_id')); ?>:</b>
-	<?php echo CHtml::encode($data->chil_id); ?>
 	<br />
 
 

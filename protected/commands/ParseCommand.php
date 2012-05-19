@@ -9,6 +9,7 @@ class ParseCommand extends CConsoleCommand {
         if ($id) {
             $parse = Parse::go($id);
             foreach ($parse as $key => $value) {
+                //echo "\tid=\t".var_dump($value)."\n";
                 echo "\tid=\t".$key."\n";
             }
             echo "\n" . $this->microtime_float($this->start);

@@ -18,8 +18,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'site_id',
             'type' => 'raw',
-            'value' => '(!empty($data->site->url))?$data->site->url:"";',
-            'filter' => CHtml::listData(SitePars::model()->findAll(),'id','url'), 
+            'value' => '(!empty($data->site->name))?$data->site->name:"";',
+            'filter' => CHtml::listData(SitePars::model()->findAll(),'id','name'), 
         ),
         array(            
             'name' => 'data',

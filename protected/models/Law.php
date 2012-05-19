@@ -34,11 +34,11 @@ class Law extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('law_type_id, chil_id', 'numerical', 'integerOnly' => true),
+            array('law_type_id', 'numerical', 'integerOnly' => true),
             array('description,stop', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, description, law_type_id, chil_id', 'safe', 'on' => 'search'),
+            array('id, description, law_type_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -50,7 +50,6 @@ class Law extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'lawtype' => array(self::BELONGS_TO, 'LawType', 'law_type_id'),
-            'chil' => array(self::BELONGS_TO, 'Law', 'chil_id'),
         );
     }
 
@@ -63,7 +62,6 @@ class Law extends CActiveRecord {
             'description' => 'Description',
             'stop' => 'Stop',
             'law_type_id' => 'Law Type',
-            'chil_id' => 'Chil',
         );
     }
 
@@ -79,7 +77,6 @@ class Law extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('chil_id', $this->chil_id);
         if ($this->law_type_id)
             $criteria->compare('law_type_id', $this->law_type_id);
 

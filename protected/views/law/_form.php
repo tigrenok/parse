@@ -17,12 +17,6 @@
 		<?php echo $form->dropDownList($model, 'law_type_id', Comp::getlist('LawType', 'id', 'name'));?>
 		<?php echo $form->error($model,'law_type_id'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'chil_id'); ?>
-		<?php echo $form->dropDownList($model, 'chil_id', Comp::getlistv('Law', 'id', 'description'));?>
-		<?php echo $form->error($model,'chil_id'); ?>
-	</div>
     <div class="row">
 		<?php echo $form->labelEx($model,'stop'); ?>
 		<?php echo $form->textField($model,'stop'); ?>

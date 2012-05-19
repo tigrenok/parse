@@ -31,6 +31,13 @@
 		<?php echo $form->error($model,'coding_id'); ?>
 	</div>
 
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'child_id'); ?>      
+		<?php echo $form->dropDownList($model, 'child_id', Comp::getlistv('SitePars', 'id', 'name'));?>
+		<?php echo $form->error($model,'child_id'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-05-19 17:28:58
+Date: 2012-05-20 01:45:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `tbl_coding` (
 -- ----------------------------
 -- Records of tbl_coding
 -- ----------------------------
-INSERT INTO `tbl_coding` VALUES ('1', 'utf 8', 'UTF8');
+INSERT INTO `tbl_coding` VALUES ('1', 'utf 8', 'UTF-8');
 INSERT INTO `tbl_coding` VALUES ('2', 'windows 1251', 'CP1251');
 
 -- ----------------------------
@@ -44,7 +44,7 @@ CREATE TABLE `tbl_content` (
   `date_parse` datetime DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=479 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=669 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_content
@@ -59,18 +59,19 @@ CREATE TABLE `tbl_law` (
   `description` varchar(255) DEFAULT NULL,
   `stop` varchar(255) DEFAULT NULL,
   `law_type_id` int(11) DEFAULT NULL,
-  `chil_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law
 -- ----------------------------
-INSERT INTO `tbl_law` VALUES ('1', 'Контакт', 'id', '3', '0');
-INSERT INTO `tbl_law` VALUES ('2', 'Контакт мой', 'id', '3', '0');
-INSERT INTO `tbl_law` VALUES ('3', 'Одиночка тест', 'id', '2', '0');
-INSERT INTO `tbl_law` VALUES ('4', 'http://ithappens.ru/', 'id', '3', '0');
-INSERT INTO `tbl_law` VALUES ('5', 'Хабр', 'id', '3', '0');
+INSERT INTO `tbl_law` VALUES ('1', 'Контакт', 'id', '3');
+INSERT INTO `tbl_law` VALUES ('2', 'Контакт мой', 'id', '3');
+INSERT INTO `tbl_law` VALUES ('3', 'Одиночка тест', 'id', '2');
+INSERT INTO `tbl_law` VALUES ('4', 'ithappens одиночка', 'id', '2');
+INSERT INTO `tbl_law` VALUES ('5', 'Хабр статьи', 'id', '2');
+INSERT INTO `tbl_law` VALUES ('6', 'Хабр', 'id', '1');
+INSERT INTO `tbl_law` VALUES ('7', 'ithappens ссылки', 'id', '1');
 
 -- ----------------------------
 -- Table structure for `tbl_law_field`
@@ -82,7 +83,7 @@ CREATE TABLE `tbl_law_field` (
   `type` int(11) DEFAULT NULL,
   `fn` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law_field
@@ -107,6 +108,9 @@ INSERT INTO `tbl_law_field` VALUES ('22', '4', '4', 'p[id^=story]');
 INSERT INTO `tbl_law_field` VALUES ('23', '5', '2', 'h3');
 INSERT INTO `tbl_law_field` VALUES ('24', '5', '4', 'div[id^=post_]');
 INSERT INTO `tbl_law_field` VALUES ('26', '4', '6', 'self::imgcontent($content)');
+INSERT INTO `tbl_law_field` VALUES ('30', '5', '6', 'self::imgcontent($content)');
+INSERT INTO `tbl_law_field` VALUES ('31', '6', '4', 'h3 a');
+INSERT INTO `tbl_law_field` VALUES ('33', '7', '4', 'h3 a');
 
 -- ----------------------------
 -- Table structure for `tbl_law_field_type`
@@ -140,14 +144,15 @@ CREATE TABLE `tbl_law_type` (
   `name` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law_type
 -- ----------------------------
-INSERT INTO `tbl_law_type` VALUES ('1', 'Список страниц', 'list_link');
+INSERT INTO `tbl_law_type` VALUES ('1', 'Список ссылки на страницу', 'list_link');
 INSERT INTO `tbl_law_type` VALUES ('2', 'Одиночка', 'one');
 INSERT INTO `tbl_law_type` VALUES ('3', 'Список блоков', 'list_block');
+INSERT INTO `tbl_law_type` VALUES ('4', 'Интервал ссылок на страницы', 'list_link_interval');
 
 -- ----------------------------
 -- Table structure for `tbl_site_pars`
@@ -159,17 +164,19 @@ CREATE TABLE `tbl_site_pars` (
   `name` varchar(255) DEFAULT NULL,
   `law_id` int(11) DEFAULT NULL,
   `coding_id` int(11) DEFAULT NULL,
+  `child_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_site_pars
 -- ----------------------------
-INSERT INTO `tbl_site_pars` VALUES ('1', 'http://vk.com/sleeva', 'Приколы', '1', '2');
-INSERT INTO `tbl_site_pars` VALUES ('2', 'http://vk.com/tiigrenok', 'Контакт мой', '2', '2');
-INSERT INTO `tbl_site_pars` VALUES ('3', 'http://vk.com/sleeva', 'Одиночка тест', '3', '2');
-INSERT INTO `tbl_site_pars` VALUES ('4', 'http://ithappens.ru/', 'http://ithappens.ru/', '4', '2');
-INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/posts/top/', 'Хабр', '5', '1');
+INSERT INTO `tbl_site_pars` VALUES ('1', 'http://vk.com/sleeva', 'Приколы', '1', '2', '0');
+INSERT INTO `tbl_site_pars` VALUES ('2', 'http://vk.com/tiigrenok', 'Контакт мой', '2', '2', null);
+INSERT INTO `tbl_site_pars` VALUES ('3', 'http://vk.com/sleeva', 'Одиночка тест', '3', '2', null);
+INSERT INTO `tbl_site_pars` VALUES ('4', 'http://ithappens.ru', 'ithappens.ru ссылки', '7', '2', '6');
+INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/posts/top/', 'Хабр', '6', '1', null);
+INSERT INTO `tbl_site_pars` VALUES ('6', 'http://ithappens.ru', 'ithappens.ru одиночка', '4', '2', '0');
 
 -- ----------------------------
 -- Table structure for `tbl_upload`
