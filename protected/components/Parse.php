@@ -20,28 +20,30 @@ class Parse extends CApplicationComponent {
 
         switch ($type) {
             case 'one':
-                // echo "\t type = \t".$type."\n";
                 $parse = Parse::getCont($model, $type);
                 break;
             case 'list_block':
-                //  echo "\t type = \t".$type."\n";
                 $parse = Parse::getCont($model, $type);
                 break;
             case 'list_link':
-                // echo "\t type = \t".$type."\n";
                 $list = Parse::getLawList($model);
                 $result = array();
                 if (!empty($list)) {
                     $child = $model->child;
                     $type = $child->law->lawtype->value;
-                    foreach ($list as $key => $value) 
-                        $result[] = Parse::getCont($child, $type, $value);                    
+                    foreach ($list as $key => $value)
+                        $result[] = Parse::getCont($child, $type, $value);
                 }
-                foreach ($result as $key => $value) 
-                    if(is_array($value))
-                        foreach ($value as $k=>$v)
-                            $parse[$k]=$v;                
+                foreach ($result as $key => $value)
+                    if (is_array($value))
+                        foreach ($value as $k => $v)
+                            $parse[$k] = $v;
                 break;
+            /*
+              case 'list_link_interval':
+              $parse = Parse::getLawListInterval($model, $type);
+              break;
+             */
         }
 
         return $parse;
@@ -70,6 +72,10 @@ class Parse extends CApplicationComponent {
             }
         }
         return $arr;
+    }
+
+    public static function getLawListInterval($model, $type) {
+        return array();
     }
 
     /**
@@ -127,14 +133,14 @@ class Parse extends CApplicationComponent {
                         eval("\$content= " . $video . ";");
                     if ($audio)
                         eval("\$content= " . $audio . ";");
-                    if($model->coding->value != "UTF-8")
-                    $data[$v->lawfieldtype->value][] = iconv($model->coding->value, "UTF-8", $content);
+                    if ($model->coding->value != "UTF-8")
+                        $data[$v->lawfieldtype->value][] = iconv($model->coding->value, "UTF-8", $content);
                     else
-                    $data[$v->lawfieldtype->value][] = $content;
+                        $data[$v->lawfieldtype->value][] = $content;
                 }
             }
         }
-        
+
         foreach (LawFieldType::model()->findAll('t.param=1') as $value) {
             $arr_seril[] = $value->value;
         }
@@ -248,4 +254,5 @@ class Parse extends CApplicationComponent {
                 return $pref . "/" . $url . "\n";
         }
     }
+
 }
