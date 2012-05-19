@@ -1,28 +1,25 @@
 <?php
 $this->breadcrumbs = array(
     'Contents' => array('index'),
-    "Статья № " . $model->id,
+    $model->id,
 );
 ?>
 
-<h1>Статья № <?php echo $model->id; ?></h1>
+<h1>View Content #<?php echo $model->id; ?></h1>
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
-    'attributes' => array(
+    'attributes' => array_merge(array(
         'id',
-        'title',
-        array(
-            'name' => 'content',
-            'type'=>'raw',
-            'value' => $model->content,
-        ),
+        'stop',
         'date_public',
-        'type',
-        'parse_site',
         'date_parse',
-        'autor',
-    ),
+        array(
+            'name' => 'site_id',
+            'type' => 'raw',
+            'value' => (!empty($model->site->url)) ? $model->site->url : '',
+        ),
+            ), $data),
 ));
 ?>

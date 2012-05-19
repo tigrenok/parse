@@ -1,11 +1,11 @@
 <?php
 $this->breadcrumbs=array(
 	'Contents'=>array('index'),
-	'Редактировать статью',
+	$model->id=>array('view','id'=>$model->id),
+	'Update',
 );
-
 ?>
 
-<h1>Редактировать статью № <?php echo $model->id; ?></h1>
+<h1>Редактировать</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -1,29 +1,27 @@
 <?php
-$this->breadcrumbs = array(
-    'Laws' => array('index'),
-    "Просмотр правила",
+$this->breadcrumbs=array(
+	'Laws'=>array('index'),
+	$model->id,
 );
 ?>
 
-<h3>Просмотр правила для <?php echo $model->sites->url; ?></h3>
+<h1>Просмотр</h1>
 
-<?php
-$this->widget('zii.widgets.CDetailView', array(
-    'data' => $model,
-    'attributes' => array(
-        'id',
-        'type',
-        'description',
-        'list_law',
-        'title_law',
-        'date_law',
-        'autor_law',
-        'content_law',
-        'img_law',
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array_merge(array(
+		'id',
+		'description',
+		'stop',
         array(
-            'name' => 'Sites',
-            'value' => ((!empty($model->sites->url)) ? $model->sites->url : '-'),
+            'name' => 'law_type_id',
+            'type' => 'raw',
+            'value' => $model->lawtype->name,
         ),
-    ),
-));
-?>
+        array(
+            'name' => 'chil_id',
+            'type' => 'raw',
+            'value' => (!empty($model->chil->description))?$model->chil->description:'',
+        ),
+	),$fealdsthis )
+)); ?>

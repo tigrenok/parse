@@ -1,2 +1,3 @@
 <ul>
-  <li><?php echo CHtml::link('Готовые статьи ('. (int)Content::getcount() .')',array('content/index')); ?></li>
+  <li><?php echo CHtml::link('Статьи ('.((int) Comp::getcount('content')).')',array('content/index')); ?></li>
+  </ul>

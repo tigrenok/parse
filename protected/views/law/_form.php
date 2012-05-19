@@ -4,63 +4,44 @@
 	'id'=>'law-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
-	<p class="note">Обязательные поля <span class="required">*</span></p>
-
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'description'); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
-        
-        <div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-                <?php echo CHtml::dropDownList('Law[type]',$model->type, array('list'=>'list','one'=>'one')); ?>
-		<?php echo $form->error($model,'type'); ?>
-	</div>
-        
+
 	<div class="row">
-		<?php echo $form->labelEx($model,'list_law'); ?>
-		<?php echo $form->textField($model,'list_law',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'list_law'); ?>
+		<?php echo $form->labelEx($model,'law_type_id'); ?>
+		<?php echo $form->dropDownList($model, 'law_type_id', Comp::getlist('LawType', 'id', 'name'));?>
+		<?php echo $form->error($model,'law_type_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'title_law'); ?>
-		<?php echo $form->textField($model,'title_law',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'title_law'); ?>
+		<?php echo $form->labelEx($model,'chil_id'); ?>
+		<?php echo $form->dropDownList($model, 'chil_id', Comp::getlistv('Law', 'id', 'description'));?>
+		<?php echo $form->error($model,'chil_id'); ?>
 	</div>
+    <div class="row">
+		<?php echo $form->labelEx($model,'stop'); ?>
+		<?php echo $form->textField($model,'stop'); ?>
+		<?php echo $form->error($model,'stop'); ?>
+	</div>
+  <?php foreach ($fealds as $key => $value) :?>
+   	<div class="row">
+      <?php echo Chtml::label($value->value,$value->value);?> 
+      <?php if(in_array($value->id , array(7,6,8))):?>
+      <?php echo Chtml::textArea("Law[fields][".$value->id."]",(isset($fealdsthis[$value->id]))?$fealdsthis[$value->id]:'',array('rows'=>5,'cols'=>30));?>
+      <?php else:?>      
+      <?php echo Chtml::textField("Law[fields][".$value->id."]",(isset($fealdsthis[$value->id]))?$fealdsthis[$value->id]:'');?>
+      <?php endif;?>
+	</div>
+ <?php endforeach;?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'date_law'); ?>
-		<?php echo $form->textField($model,'date_law',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'date_law'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'autor_law'); ?>
-		<?php echo $form->textField($model,'autor_law',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'autor_law'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'content_law'); ?>
-		<?php echo $form->textField($model,'content_law',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'content_law'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'img_law'); ?>
-		<?php echo $form->textField($model,'img_law',array('size'=>60,'maxlength'=>500)); ?>
-		<?php echo $form->error($model,'img_law'); ?>
-	</div>
-        
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
 </div><!-- form -->
