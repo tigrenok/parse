@@ -95,4 +95,22 @@ class SitePars extends CActiveRecord {
                 ));
     }
 
+    public static function lawInfo($model) {
+        $fealdsthis = array();
+        foreach (LawField::model()->findAll('t.law_id = ' . $model->law->id) as $key => $value) {
+            $fealdsthis[] = array('name' => (isset($value->lawfieldtype->name)) ? $value->lawfieldtype->name : '', 'value' => $value->fn);
+        }
+        return array('model' => $model->law, 'fealdsthis' => $fealdsthis);
+    }
+
+    public static function childInfo($model) {
+        $child = SitePars::model()->findByPk($model->id);
+        $fealdsthis = array();
+        if (!empty($child->law->id))
+            foreach (LawField::model()->findAll('t.law_id = ' . $child->law->id) as $key => $value) {
+                $fealdsthis[] = array('name' => $value->lawfieldtype->name, 'value' => $value->fn);
+            }
+        return array('model' => $child, 'fealdsthis' => $fealdsthis);
+    }
+
 }

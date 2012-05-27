@@ -39,3 +39,33 @@
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<div class="help">
+    <h3>Интервал страниц</h3>
+        <b>бязательно:</b> 
+        <p>Description</p> 
+    <h3>Список ссылкок страниц</h3>
+        <b>Обязательно</b>
+        <p>Description <br />
+            content - a[class=post_title]</p>
+    <h3>Список блоков</h3>
+        <b>Обязательно</b>
+        <p>Description <br />
+            content - a[class=post_title]</p>
+        <b>Желательно</b>
+        <p>Stop - id <br />
+            header - h1[class=title]</p>
+    <h3>Одиночка</h3>
+        <b>Обязательно</b>
+        <p>Description  <br />
+            Stop - id <br />
+            header - h1[class=title]<br />
+            content - a[class=post_title]
+           </p>
+    <h3>Дополнительно</h3>
+        <p>img - self::imgcontent($content)  <br />
+            video - self::videocontent($content,'div[class=media_desc] a',преф_урл) <br />
+            audio - self::audiocontent($content,'div[class=audio_title_wrap] a','http://vk.com')
+           </p>
+    
+        
+</div>

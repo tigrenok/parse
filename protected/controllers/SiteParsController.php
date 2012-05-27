@@ -134,4 +134,14 @@ class SiteParsController extends Controller {
         }
     }
 
+    public function actionLawInfo($id) {
+        $model = SitePars::model()->findByPk($id);
+        echo $this->renderPartial('/law/view', $model->lawInfo($model));
+    }
+
+    public function actionChildInfo($id) {  
+        $model = SitePars::model()->findByPk($id);
+        echo $this->renderPartial('/sitePars/view', $model->childInfo($model));
+    }
+
 }

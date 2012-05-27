@@ -122,6 +122,15 @@ div.flash-success a
 {
 	color:#264409;
 }
+div.form{
+    width: 300px;
+    float:left;
+}
+div.help{
+    width: 500px;
+    float:left;
+    padding-left: 50px;
+}
 
 div.form .rememberMe label
 {

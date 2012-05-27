@@ -5,7 +5,7 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<h1>Просмотр</h1>
+<h3>Просмотр </h3>
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
