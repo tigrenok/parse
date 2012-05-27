@@ -191,12 +191,18 @@ class Parse extends CApplicationComponent {
         }
 
         $return = array();
+        $html = new simple_html_dom();
 
         foreach ($data['content'] as $key => $cont) {
             $serialize = array();
             $str_cont = '';
             foreach ($arr_seril as $value) {
                 if ($value == 'content') {
+                    if(is_string($cont)){
+                        $html->load($cont);
+                        foreach ($html->find('[onclick]') as $ok => $ov) 
+                                $cont= str_replace($ov->onclick, "return true;", $cont);                        
+                    }
                     $serialize['content'] = $cont;
                     $str_cont = $serialize[$value];
                 } else

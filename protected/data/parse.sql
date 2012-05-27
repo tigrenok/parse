@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-05-27 19:51:05
+Date: 2012-05-28 01:09:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `tbl_content` (
   `date_parse` datetime DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_content
@@ -61,7 +61,7 @@ CREATE TABLE `tbl_law` (
   `stop` varchar(255) DEFAULT NULL,
   `law_type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law
@@ -73,6 +73,8 @@ INSERT INTO `tbl_law` VALUES ('4', 'ithappens одиночка', 'id', '2');
 INSERT INTO `tbl_law` VALUES ('5', 'Хабр статьи', 'id', '2');
 INSERT INTO `tbl_law` VALUES ('6', 'Хабр', 'id', '4');
 INSERT INTO `tbl_law` VALUES ('7', 'ithappens ссылки', 'id', '1');
+INSERT INTO `tbl_law` VALUES ('8', 'Хабр блоки', '', '3');
+INSERT INTO `tbl_law` VALUES ('9', 'Хабр ссылки', '', '1');
 
 -- ----------------------------
 -- Table structure for `tbl_law_field`
@@ -84,7 +86,7 @@ CREATE TABLE `tbl_law_field` (
   `type` int(11) DEFAULT NULL,
   `fn` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law_field
@@ -111,6 +113,10 @@ INSERT INTO `tbl_law_field` VALUES ('24', '5', '4', 'div[id^=post_]');
 INSERT INTO `tbl_law_field` VALUES ('26', '4', '6', 'self::imgcontent($content)');
 INSERT INTO `tbl_law_field` VALUES ('30', '5', '6', 'self::imgcontent($content)');
 INSERT INTO `tbl_law_field` VALUES ('33', '7', '4', 'h3 a');
+INSERT INTO `tbl_law_field` VALUES ('34', '8', '2', 'h1[class=title]');
+INSERT INTO `tbl_law_field` VALUES ('35', '8', '4', 'div[class=content html_format]');
+INSERT INTO `tbl_law_field` VALUES ('36', '8', '6', 'self::imgcontent($content)');
+INSERT INTO `tbl_law_field` VALUES ('37', '9', '4', 'a[class=post_title]');
 
 -- ----------------------------
 -- Table structure for `tbl_law_field_type`
@@ -149,10 +155,10 @@ CREATE TABLE `tbl_law_type` (
 -- ----------------------------
 -- Records of tbl_law_type
 -- ----------------------------
-INSERT INTO `tbl_law_type` VALUES ('1', 'Список ссылки на страницу', 'list_link');
+INSERT INTO `tbl_law_type` VALUES ('1', 'Список ссылкок страниц', 'list_link');
 INSERT INTO `tbl_law_type` VALUES ('2', 'Одиночка', 'one');
 INSERT INTO `tbl_law_type` VALUES ('3', 'Список блоков', 'list_block');
-INSERT INTO `tbl_law_type` VALUES ('4', 'Интервал ссылок на страницы', 'list_link_interval');
+INSERT INTO `tbl_law_type` VALUES ('4', 'Интервал страниц', 'list_link_interval');
 
 -- ----------------------------
 -- Table structure for `tbl_site_pars`
@@ -166,7 +172,7 @@ CREATE TABLE `tbl_site_pars` (
   `coding_id` int(11) DEFAULT NULL,
   `child_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_site_pars
@@ -175,9 +181,11 @@ INSERT INTO `tbl_site_pars` VALUES ('1', 'http://vk.com/sleeva', 'Приколы
 INSERT INTO `tbl_site_pars` VALUES ('2', 'http://vk.com/tiigrenok', 'Контакт мой', '2', '2', null);
 INSERT INTO `tbl_site_pars` VALUES ('3', 'http://vk.com/sleeva', 'Одиночка тест', '3', '2', null);
 INSERT INTO `tbl_site_pars` VALUES ('4', 'http://ithappens.ru', 'ithappens.ru ссылки', '7', '2', '6');
-INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/post/[id-1-3]/', 'Хабр интервал', '6', '1', '7');
+INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/posts/top/page[id-1-2]/', 'Хабр интервал', '6', '1', '9');
 INSERT INTO `tbl_site_pars` VALUES ('6', 'http://ithappens.ru', 'ithappens.ru одиночка', '4', '2', '0');
-INSERT INTO `tbl_site_pars` VALUES ('7', 'http://habrahabr.ru/post/144614/', 'Одиночка хабра', '5', '1', '0');
+INSERT INTO `tbl_site_pars` VALUES ('7', 'http://habrahabr.ru/post/144614/', 'Хабр одиночка', '5', '1', '0');
+INSERT INTO `tbl_site_pars` VALUES ('8', 'http://habrahabr.ru/posts/top/page2/', 'Хабр блоки', '8', '1', '0');
+INSERT INTO `tbl_site_pars` VALUES ('9', 'http://habrahabr.ru/posts/top/page2/', 'Хабр ссылки', '9', '1', '7');
 
 -- ----------------------------
 -- Table structure for `tbl_upload`
