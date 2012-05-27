@@ -10,10 +10,11 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-05-20 01:45:52
+Date: 2012-05-27 19:51:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
 -- Table structure for `tbl_coding`
 -- ----------------------------
@@ -44,7 +45,7 @@ CREATE TABLE `tbl_content` (
   `date_parse` datetime DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=669 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_content
@@ -70,7 +71,7 @@ INSERT INTO `tbl_law` VALUES ('2', 'Контакт мой', 'id', '3');
 INSERT INTO `tbl_law` VALUES ('3', 'Одиночка тест', 'id', '2');
 INSERT INTO `tbl_law` VALUES ('4', 'ithappens одиночка', 'id', '2');
 INSERT INTO `tbl_law` VALUES ('5', 'Хабр статьи', 'id', '2');
-INSERT INTO `tbl_law` VALUES ('6', 'Хабр', 'id', '1');
+INSERT INTO `tbl_law` VALUES ('6', 'Хабр', 'id', '4');
 INSERT INTO `tbl_law` VALUES ('7', 'ithappens ссылки', 'id', '1');
 
 -- ----------------------------
@@ -109,7 +110,6 @@ INSERT INTO `tbl_law_field` VALUES ('23', '5', '2', 'h3');
 INSERT INTO `tbl_law_field` VALUES ('24', '5', '4', 'div[id^=post_]');
 INSERT INTO `tbl_law_field` VALUES ('26', '4', '6', 'self::imgcontent($content)');
 INSERT INTO `tbl_law_field` VALUES ('30', '5', '6', 'self::imgcontent($content)');
-INSERT INTO `tbl_law_field` VALUES ('31', '6', '4', 'h3 a');
 INSERT INTO `tbl_law_field` VALUES ('33', '7', '4', 'h3 a');
 
 -- ----------------------------
@@ -144,7 +144,7 @@ CREATE TABLE `tbl_law_type` (
   `name` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_law_type
@@ -166,7 +166,7 @@ CREATE TABLE `tbl_site_pars` (
   `coding_id` int(11) DEFAULT NULL,
   `child_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_site_pars
@@ -175,8 +175,9 @@ INSERT INTO `tbl_site_pars` VALUES ('1', 'http://vk.com/sleeva', 'Приколы
 INSERT INTO `tbl_site_pars` VALUES ('2', 'http://vk.com/tiigrenok', 'Контакт мой', '2', '2', null);
 INSERT INTO `tbl_site_pars` VALUES ('3', 'http://vk.com/sleeva', 'Одиночка тест', '3', '2', null);
 INSERT INTO `tbl_site_pars` VALUES ('4', 'http://ithappens.ru', 'ithappens.ru ссылки', '7', '2', '6');
-INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/posts/top/', 'Хабр', '6', '1', null);
+INSERT INTO `tbl_site_pars` VALUES ('5', 'http://habrahabr.ru/post/[id-1-3]/', 'Хабр интервал', '6', '1', '7');
 INSERT INTO `tbl_site_pars` VALUES ('6', 'http://ithappens.ru', 'ithappens.ru одиночка', '4', '2', '0');
+INSERT INTO `tbl_site_pars` VALUES ('7', 'http://habrahabr.ru/post/144614/', 'Одиночка хабра', '5', '1', '0');
 
 -- ----------------------------
 -- Table structure for `tbl_upload`

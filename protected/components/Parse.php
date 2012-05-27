@@ -39,11 +39,21 @@ class Parse extends CApplicationComponent {
                         foreach ($value as $k => $v)
                             $parse[$k] = $v;
                 break;
-            /*
-              case 'list_link_interval':
-              $parse = Parse::getLawListInterval($model, $type);
-              break;
-             */
+
+            case 'list_link_interval':
+                $type = $model->child->law->lawtype->value;
+                $list_interval = Parse::getLawListInterval($model);
+                $parse = array();
+                if (in_array($type,array('one','list_block'))) {
+                    foreach ($list_interval as $key => $value) {
+                        $model->child->url = $value;
+                        $parse[] = key(Parse::getCont($model->child, $type));
+                    }
+                }
+
+                var_dump(array_flip($parse));
+                exit;
+                break;
         }
 
         return $parse;
@@ -74,8 +84,25 @@ class Parse extends CApplicationComponent {
         return $arr;
     }
 
-    public static function getLawListInterval($model, $type) {
-        return array();
+    /**
+     * Возвращает список страниц в интервале которые входят в парсинг
+     * @param object $model
+     * @return array 
+     */
+    public static function getLawListInterval($model) {
+        preg_match_all("|\[(.*)\]|U", $model->url, $rex, PREG_PATTERN_ORDER);
+        $return = array(0 => $model->url);
+        foreach ($rex[1] as $key => $value) {
+            $interval = explode("-", $value);
+            for ($i = (int) $interval[1]; $i <= $interval[2]; $i++) {
+                foreach ($return as $k => $v) {
+                    $tmp[] = str_replace("[" . $value . "]", $i, $v);
+                }
+            }
+            $return = $tmp;
+            $tmp = array();
+        }
+        return $return;
     }
 
     /**
