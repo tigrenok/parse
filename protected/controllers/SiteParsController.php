@@ -135,13 +135,21 @@ class SiteParsController extends Controller {
     }
 
     public function actionLawInfo($id) {
-        $model = SitePars::model()->findByPk($id);
-        echo $this->renderPartial('/law/view', $model->lawInfo($model));
+        if (!empty($id)) {
+            $model = SitePars::model()->findByPk($id);
+            echo $this->renderPartial('/law/view', $model->lawInfo($model));
+        } else {
+            echo 'Не правильный id или нет такой записи!';
+        }
     }
 
-    public function actionChildInfo($id) {  
-        $model = SitePars::model()->findByPk($id);
-        echo $this->renderPartial('/sitePars/view', $model->childInfo($model));
+    public function actionChildInfo($id) {
+        if (!empty($id)) {
+            $model = SitePars::model()->findByPk($id);
+            echo $this->renderPartial('/sitePars/view', $model->childInfo($model));
+        } else {
+            echo 'Не правильный id или нет такой записи!';
+        }
     }
 
 }
