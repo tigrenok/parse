@@ -34,25 +34,43 @@ class Parse extends CApplicationComponent {
                     foreach ($list as $key => $value)
                         $result[] = Parse::getCont($child, $type, $value);
                 }
-                foreach ($result as $key => $value)
-                    if (is_array($value))
-                        foreach ($value as $k => $v)
-                            $parse[$k] = $v;
+                $parse = self::getParseArray($result);
                 break;
 
             case 'list_link_interval':
                 $type = $model->child->law->lawtype->value;
                 $list_interval = Parse::getLawListInterval($model);
                 $parse = array();
-                if (in_array($type,array('one','list_block'))) {
+
+                if (in_array($type, array('one', 'list_block'))) {
                     foreach ($list_interval as $key => $value) {
+                        echo $value . "\n";
                         $model->child->url = $value;
                         $parse[] = key(Parse::getCont($model->child, $type));
+                        sleep(3);
                     }
                 }
 
-                var_dump(array_flip($parse));
-                exit;
+                if (in_array($type, array('list_link'))) {
+                    foreach ($list_interval as $key => $value) {
+                        echo $value . "\n";
+                        $model->child->url = $value;
+                        $model_child = $model->child;
+
+                        $list = Parse::getLawList($model_child);
+                        $result = array();
+                        if (!empty($list)) {
+                            $child = $model_child->child;
+                            $type = $child->law->lawtype->value;
+                            foreach ($list as $key => $value)
+                                $result[] = Parse::getCont($child, $type, $value);
+                        }
+                        sleep(3);
+                    }
+                    $parse = self::getParseArray($result);
+                }
+
+                $parse = array_flip($parse);
                 break;
         }
 
@@ -280,6 +298,15 @@ class Parse extends CApplicationComponent {
             else
                 return $pref . "/" . $url . "\n";
         }
+    }
+
+    public static function getParseArray($result) {
+        $parse = array();
+        foreach ($result as $key => $value)
+            if (is_array($value))
+                foreach ($value as $k => $v)
+                    $parse[$k] = $v;
+        return $parse;
     }
 
 }
