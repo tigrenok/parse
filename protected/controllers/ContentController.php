@@ -20,6 +20,7 @@ class ContentController extends Controller {
      */
     public function actionView($id) {
         $model = $this->loadModel($id);
+
         foreach (unserialize($model->data) as $key => $value) {
             $data[] = array('name' => $key, 'value' => $value, 'type' => 'raw',);
         }
@@ -61,9 +62,17 @@ class ContentController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Content'])) {
+            $data = array();
             $model->attributes = $_POST['Content'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+
+            if (isset($_POST['Content']['data']))
+                foreach ($_POST['Content']['data'] as $key => $value) {
+                    $data[$key] = $value;
+                }
+            $model->data = serialize($data);
+            
+            $model->save();
+            //     $this->redirect(array('view', 'id' => $model->id));
         }
 
         $this->render('update', array(
