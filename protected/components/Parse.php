@@ -1,17 +1,7 @@
 <?php
 
-/**
- * Image handler
- * @author Pelesh Yaroslav aka Tokolist (http://tokolist.com)
- * @version 0.9 beta
- */
 class Parse extends CApplicationComponent {
 
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
-     */
     public static function go($id) {
         Yii::import('zii.widgets.CPortlet');
         $model = self::loadModel($id);
