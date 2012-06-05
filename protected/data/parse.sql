@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50522
 File Encoding         : 65001
 
-Date: 2012-05-28 01:09:51
+Date: 2012-06-03 14:57:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `tbl_content` (
   `date_parse` datetime DEFAULT NULL,
   `site_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tbl_content
@@ -159,6 +159,43 @@ INSERT INTO `tbl_law_type` VALUES ('1', 'Список ссылкок стран�
 INSERT INTO `tbl_law_type` VALUES ('2', 'Одиночка', 'one');
 INSERT INTO `tbl_law_type` VALUES ('3', 'Список блоков', 'list_block');
 INSERT INTO `tbl_law_type` VALUES ('4', 'Интервал страниц', 'list_link_interval');
+
+-- ----------------------------
+-- Table structure for `tbl_post_site`
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_post_site`;
+CREATE TABLE `tbl_post_site` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `login` varchar(255) DEFAULT NULL,
+  `pass` varchar(255) DEFAULT NULL,
+  `site` varchar(255) DEFAULT NULL,
+  `rpc_script` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tbl_post_site
+-- ----------------------------
+INSERT INTO `tbl_post_site` VALUES ('1', 'http://wordpress.wp', 'admin', 'admin536', 'http://wordpress.wp', '/xmlrpc.php');
+
+-- ----------------------------
+-- Table structure for `tbl_post_site_categories`
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_post_site_categories`;
+CREATE TABLE `tbl_post_site_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tbl_post_site_categories
+-- ----------------------------
+INSERT INTO `tbl_post_site_categories` VALUES ('1', 'Без рубрики', 'без-рубрики', '1');
+INSERT INTO `tbl_post_site_categories` VALUES ('2', 'Новое', 'new', '1');
 
 -- ----------------------------
 -- Table structure for `tbl_site_pars`

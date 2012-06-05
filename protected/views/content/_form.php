@@ -13,11 +13,11 @@
         $data = unserialize($model->data);
         foreach ($data as $key => $value):
             if ($key != 'content'):
-                echo CHtml::label( $key ,'data[' . $key . ']');
-                echo CHtml::textField('data[' . $key . ']', $value);
+                echo CHtml::label( $key ,'Content[data][' . $key . ']');
+                echo CHtml::textField('Content[data][' . $key . ']', $value);
             else:
-                echo CHtml::label($key ,'data[' . $key . ']');
-                echo CHtml::textArea('data[' . $key . ']', $value, array('rows' => 40, 'cols' => 130));
+                echo CHtml::label($key ,'Content[data][' . $key . ']');
+                echo CHtml::textArea('Content[data][' . $key . ']', $value, array('rows' => 40, 'cols' => 130));
             endif;
         endforeach;
         ?>
