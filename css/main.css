@@ -239,3 +239,21 @@ div.search-form
 .edit_teaxarea{
     width: 100%;
 }
+#textarea_min{
+padding-left: 900px;
+}
+
+div.parse_help{    
+    position: relative;
+    left:500px;
+    width: 300px;
+}
+div#parse_site_info{     
+    position: relative;
+    left:500px;
+    width: 300px;
+}
+.hidden{
+    position: relative;
+    height: 0px;
+}
