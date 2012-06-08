@@ -88,9 +88,10 @@
     <div class="row" id='post_site_categories'>
         <?php echo CHtml::label('Site Tags', 'post_site_tags_id'); ?>
         <?php echo CHtml::textField('post_site_tags'); ?>
+        <?php echo CHtml::hiddenField('content_id',$model->id); ?>
     </div>
-
-    <?php echo CHtml::submitButton('Post'); ?>
+    <?php echo CHtml::submitButton('Post',array('onclick'=>'return post_validate();')); ?>    
+    <div id='error_post_site_id'></div>
     <?php echo CHtml::endForm(); ?>    
 
 </div><!-- form -->

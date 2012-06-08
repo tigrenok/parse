@@ -1,16 +1,10 @@
 <?php
 
-/**
- * Image handler
- * @author Pelesh Yaroslav aka Tokolist (http://tokolist.com)
- * @version 0.9 beta
- */
 class Parse extends CApplicationComponent {
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * Стартовая функция
+     * 
      */
     public static function go($id) {
         Yii::import('zii.widgets.CPortlet');
@@ -198,10 +192,10 @@ class Parse extends CApplicationComponent {
             $str_cont = '';
             foreach ($arr_seril as $value) {
                 if ($value == 'content') {
-                    if(is_string($cont)){
+                    if (is_string($cont)) {
                         $html->load($cont);
-                        foreach ($html->find('[onclick]') as $ok => $ov) 
-                                $cont= str_replace($ov->onclick, "return true;", $cont);                        
+                        foreach ($html->find('[onclick]') as $ok => $ov)
+                            $cont = str_replace($ov->onclick, "return true;", $cont);
                     }
                     $serialize['content'] = $cont;
                     $str_cont = $serialize[$value];

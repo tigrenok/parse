@@ -16,6 +16,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'columns' => array(
         'id',
         array(
+            'class' => 'CButtonColumn',
+        ),
+        array(
             'name' => 'site_id',
             'type' => 'raw',
             'value' => '(!empty($data->site->name))?$data->site->name:"";',
@@ -29,9 +32,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'stop',
         'date_parse',
         'date_public',
-        array(
-            'class' => 'CButtonColumn',
-        ),
     ),
 ));
 ?>

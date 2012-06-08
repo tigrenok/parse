@@ -46,5 +46,15 @@ $(function() {
             }
         });    
     });
-    
+        
 });
+
+function post_validate(){
+    $('#error_post_site_id').html('');
+    var id = $('#post_site_id').val();
+    if(id == '0'){
+        $('#error_post_site_id').html('выберите сайт для постинга');
+        return false;
+    }else
+        return true;
+}

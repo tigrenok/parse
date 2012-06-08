@@ -257,3 +257,6 @@ div#parse_site_info{
     position: relative;
     height: 0px;
 }
+#error_post_site_id{
+    color:red;
+}

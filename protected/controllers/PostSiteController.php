@@ -94,7 +94,28 @@ class PostSiteController extends Controller {
     }
 
     public function actionPost() {
-        $model = isset($_POST) ? $_POST : '';
+
+
+        if (isset($_POST['content_id']) and isset($_POST['post_site_id'])) {
+            $data = array();
+            foreach (PostSite::model()->findByPk((int) $_POST['post_site_id']) as $key => $value) {
+                $data['config'][$key] = $value;
+            }
+
+            foreach (Content::model()->findByPk((int) $_POST['content_id']) as $key => $value) {
+                if ($key == 'data')
+                    foreach (unserialize($value) as $k => $v)
+                        $data['content'][$k] = $v;
+                else
+                    $data['content'][$key] = $value;
+            }
+
+
+            $model = Post::go($data);
+        } else {
+            $model = null;
+        }
+
         $this->render('post', array(
             'model' => $model,
         ));
@@ -102,19 +123,19 @@ class PostSiteController extends Controller {
 
     public function actionSiteList($id) {
         $return = array();
-        foreach (PostSiteCategories::model()->findAll('t.site_id='.$id) as $key => $value) {
-            $return[$value->id]=$value->name;
+        foreach (PostSiteCategories::model()->findAll('t.site_id=' . $id) as $key => $value) {
+            $return[$value->id] = $value->name;
         }
-        if(!empty($return))
-        echo CHtml::dropDownList('post_site_categories', 0, $return);
+        if (!empty($return))
+            echo CHtml::dropDownList('post_site_categories', 0, $return);
         else
-        echo CHtml::dropDownList('post_site_categories', 0, array(0=>"Выбрать"),array('disabled'=>'disabled'));
+            echo CHtml::dropDownList('post_site_categories', 0, array(0 => "Выбрать"), array('disabled' => 'disabled'));
     }
-    
-       public function actionSiteInfo($id) {
+
+    public function actionSiteInfo($id) {
         if (!empty($id)) {
             $model = PostSite::model()->findByPk($id);
-            echo $this->renderPartial('/postSite/_view', array('data'=>$model));
+            echo $this->renderPartial('/postSite/_view', array('data' => $model));
         } else {
             echo 'Не правильный id или нет такой записи!';
         }
