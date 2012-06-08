@@ -111,7 +111,7 @@ class PostSiteController extends Controller {
             }
 
 
-            $model = Post::go($data);
+            $model = PostComponent::go($data);
         } else {
             $model = null;
         }

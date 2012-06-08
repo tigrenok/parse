@@ -1,6 +1,6 @@
 <?php
 
-class Post extends CApplicationComponent {
+class PostComponent extends CApplicationComponent {
     /**
      * Стартова функция
      * @param type $data
