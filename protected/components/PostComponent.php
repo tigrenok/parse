@@ -40,7 +40,8 @@ class PostComponent extends CApplicationComponent {
       $post->setPostType('post');//тип поста
       $post->setDate($time); //время публикации поста
       $post->setCategories(array($categories)); //указываем категорию поста
-      $post->setKeywords(array(explode (',', $text['post_site_tags']))); // если в БД тэги хранятся через запятую, переделываем в массив и указываем его
+      if(!empty($params['post_site_tags']))
+      $post->setKeywords(array(explode (',', $params['post_site_tags']))); 
       // $res = $poster->post($blog, $post); //отправляем все данные блогу
      
     return $data['params'];
