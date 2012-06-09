@@ -875,7 +875,7 @@ class wp_blog {
 //TODO разобраться с getErrorMessage везде
 
 //
-//                'wp.getUsersBlogs'      => 'this:wp_getUsersBlogs',
+//            'wp.getUsersBlogs'      => 'this:wp_getUsersBlogs',
 //            'wp.getPage'            => 'this:wp_getPage',
 //            'wp.getPages'           => 'this:wp_getPages',
 //            'wp.newPage'            => 'this:wp_newPage',

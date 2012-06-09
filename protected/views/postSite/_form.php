@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'pass'); ?>
-		<?php echo $form->passwordField($model,'pass',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->textField($model,'pass',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'pass'); ?>
 	</div>
 
