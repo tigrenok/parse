@@ -2,6 +2,11 @@
 
 class Parse extends CApplicationComponent {
 
+
+    /**
+     * Стартовая функция
+     * 
+     */
     public static function go($id) {
         Yii::import('zii.widgets.CPortlet');
         $model = self::loadModel($id);
@@ -188,10 +193,10 @@ class Parse extends CApplicationComponent {
             $str_cont = '';
             foreach ($arr_seril as $value) {
                 if ($value == 'content') {
-                    if(is_string($cont)){
+                    if (is_string($cont)) {
                         $html->load($cont);
-                        foreach ($html->find('[onclick]') as $ok => $ov) 
-                                $cont= str_replace($ov->onclick, "return true;", $cont);                        
+                        foreach ($html->find('[onclick]') as $ok => $ov)
+                            $cont = str_replace($ov->onclick, "return true;", $cont);
                     }
                     $serialize['content'] = $cont;
                     $str_cont = $serialize[$value];
