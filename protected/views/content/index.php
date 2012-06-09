@@ -1,3 +1,7 @@
+<script>
+$('#content-grid_c2').css('width','400px !important');
+</script>
+
 <?php
 $this->breadcrumbs = array(
     'Contents' => array('index'),
