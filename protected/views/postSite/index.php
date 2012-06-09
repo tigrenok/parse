@@ -19,7 +19,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'login',
         'pass',
         'site',
-        'rpc_script',
         array(
             'class' => 'CButtonColumn',
         ),

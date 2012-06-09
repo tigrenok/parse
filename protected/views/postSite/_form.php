@@ -31,12 +31,6 @@
 		<?php echo $form->error($model,'site'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'rpc_script'); ?>
-		<?php echo $form->textField($model,'rpc_script',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'rpc_script'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

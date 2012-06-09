@@ -11,50 +11,39 @@ class PostComponent extends CApplicationComponent {
     Yii::import('application.vendors.*');
     require_once ('ixr_client.php');
     require_once ('wp_poster.php');
-
     $config = $data['config'];
     
+    //данные авторизации на блог
+    $blog_login = $config->login;
+    $blog_pass = $config->pass;
+    $blog_xmlrpc = $config->site;
+
+    //инициализация процесса :)
+    $poster = wp_poster::getInstance();
+    $blog = new wp_blog($blog_xmlrpc, $blog_login, $blog_pass, 0);
+
+    //запоминаем текущее время в формате timestamp
+    $text = $data['content'];
+    $params = $data['params'];
+    $time = time() + ((int) $params['post_time_mines']) + rand(-3600, 3600);
     
-/*
+    if ($tmp_cat = PostSiteCategories::model()->findByPk((int) $params['post_site_categories']))
+      $categories = $tmp_cat->value;
+    else
+      $categories = 'Без рубрики';
     
-      $wp = new xmlrpc_client($config->rpc_script, $config->name, 80);
-      //кодировка клиента
-      $wp->request_charset_encoding = 'UTF-8';
-      //чтоб возвращал в виде php-переменных
-      $wp->return_type = 'phpvals';
-
-    
- 
-
-
-
-//собираем все в кучу
-$params = array( //ид блога
-new xmlrpcval(0, 'int'), //логин
-new xmlrpcval($u_name, 'string'), //пароль
-new xmlrpcval($u_pass, 'string'), //данные
-new xmlrpcval($struct, 'struct'),
-//публикация: true - опубликована,
-//false - не опубликована
-new xmlrpcval(true, 'boolean'));
- 
-//вызываем процедуру metaWeblog.newPost
-$r = $wp->send(new xmlrpcmsg('metaWeblog.newPost', $params));
-//если ошибка, сообщаем об ошибке постинга
-if ($r->faultCode()) {
-die('Ошибка постинга:' . $r->faultString());
-}
-//WP вернет идентификатор поста в случае успеха
-$p = $r->value();
- 
-echo 'Запостили пост успешно. Его идентификатор '.
-'имеет номер ' . $p .'. Прочитать статью можно'.
-' <a href="http://test.wordpress.loc/?p=' . $p .     '">здесь</a> ';
-     */
-
-    $struct = array();
-
-    return $config;
+      $blog->wp_createCategories(array($categories)); //создаём новую категорию в блоге (даже если она уже есть, ничё страшного)
+      $post = new wp_post(); //новый пост
+      $post->setTitle(isset($text['header'])?$text['header']:''); //задаём заголовок в UTF8-кодировке
+      $post->setDescription($text['content']); //задаём контент в UTF8
+      $post->setPostStatus('publish');//статус поста
+      $post->setPostType('post');//тип поста
+      $post->setDate($time); //время публикации поста
+      $post->setCategories(array($categories)); //указываем категорию поста
+      $post->setKeywords(array(explode (',', $text['post_site_tags']))); // если в БД тэги хранятся через запятую, переделываем в массив и указываем его
+      // $res = $poster->post($blog, $post); //отправляем все данные блогу
+     
+    return $data['params'];
   }
 
 }

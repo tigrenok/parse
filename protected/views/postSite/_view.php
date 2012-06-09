@@ -20,9 +20,4 @@
 	<?php echo CHtml::encode($data->site); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('rpc_script')); ?>:</b>
-	<?php echo CHtml::encode($data->rpc_script); ?>
-	<br />
-
-
 </div>

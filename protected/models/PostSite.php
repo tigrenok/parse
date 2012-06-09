@@ -39,10 +39,10 @@ class PostSite extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, login, pass, site, rpc_script', 'length', 'max'=>255),
+			array('name, login, pass, site', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, login, pass, site, rpc_script', 'safe', 'on'=>'search'),
+			array('id, name, login, pass, site', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +69,6 @@ class PostSite extends CActiveRecord
 			'login' => 'Login',
 			'pass' => 'Pass',
 			'site' => 'Site',
-			'rpc_script' => 'Rpc Script',
 		);
 	}
 
@@ -79,18 +78,12 @@ class PostSite extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
-
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('login',$this->login,true);
 		$criteria->compare('pass',$this->pass,true);
 		$criteria->compare('site',$this->site,true);
-		$criteria->compare('rpc_script',$this->rpc_script,true);
-
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

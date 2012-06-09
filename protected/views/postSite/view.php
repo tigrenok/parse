@@ -16,6 +16,5 @@ $this->breadcrumbs=array(
 		'login',
 		'pass',
 		'site',
-		'rpc_script',
 	),
 )); ?>
