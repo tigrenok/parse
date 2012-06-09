@@ -1,7 +1,3 @@
-<script>
-$('#content-grid_c2').css('width','400px !important');
-</script>
-
 <?php
 $this->breadcrumbs = array(
     'Contents' => array('index'),
@@ -15,7 +11,7 @@ $this->breadcrumbs = array(
 $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'content-grid',
     'dataProvider' => $model->search(),
-    'template'=>'{summary} {pager} <br /> {items} {pager}',
+    'template' => '{summary} {pager} <br /> {items} {pager}',
     'filter' => $model,
     'columns' => array(
         'id',
@@ -26,9 +22,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'site_id',
             'type' => 'raw',
             'value' => '(!empty($data->site->name))?$data->site->name:"";',
-            'filter' => CHtml::listData(SitePars::model()->findAll(),'id','name'), 
+            'filter' => CHtml::listData(SitePars::model()->findAll(), 'id', 'name'),
         ),
-        array(            
+        array(
             'name' => 'data',
             'type' => 'raw',
             'value' => '$data->getcontent()', //
