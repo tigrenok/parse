@@ -98,9 +98,7 @@ class PostSiteController extends Controller {
 
         if (isset($_POST['content_id']) and isset($_POST['post_site_id'])) {
             $data = array();
-            foreach (PostSite::model()->findByPk((int) $_POST['post_site_id']) as $key => $value) {
-                $data['config'][$key] = $value;
-            }
+            $data['config'] = PostSite::model()->findByPk((int) $_POST['post_site_id']);
 
             foreach (Content::model()->findByPk((int) $_POST['content_id']) as $key => $value) {
                 if ($key == 'data')

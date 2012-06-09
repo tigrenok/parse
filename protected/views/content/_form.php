@@ -88,6 +88,8 @@
     <div class="row" id='post_site_categories'>
         <?php echo CHtml::label('Site Tags', 'post_site_tags_id'); ?>
         <?php echo CHtml::textField('post_site_tags'); ?>
+        <?php echo CHtml::label('Смешение публикации', 'post_time_mines'); ?>
+        <?php echo CHtml::textField('post_time_mines',0); ?>
         <?php echo CHtml::hiddenField('content_id',$model->id); ?>
     </div>
     <?php echo CHtml::submitButton('Post',array('onclick'=>'return post_validate();')); ?>    
