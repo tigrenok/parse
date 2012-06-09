@@ -45,6 +45,7 @@ class PostComponent extends CApplicationComponent {
       // $res = $poster->post($blog, $post); //отправляем все данные блогу
      
     return $data['params'];
+    //return $res[0];
   }
 
 }
